@@ -10,7 +10,7 @@ app.use(bodyParser.json());//lets us parse the input data as json
 
 //Tells the server to listen for get request, when it receives, it prints
 app.get('/contactlist', function(req, res) {
-  console.log("I received a get request")
+  console.log("I received a get request");
 
   db.contactlist.find(function(err,docs) {
     console.log(docs);
@@ -27,6 +27,17 @@ app.post('/contactlist', function(req, res) {
     res.json(doc);
   });
 });
+
+//Listen to controller and delete the id, *note :id means id isn't part of string
+app.delete('/contactlist/:id', function(req, res) {
+  var id = req.params.id;
+  console.log(id);
+  //remove from database by ID
+  db.contactlist.remove({_id: mongojs.ObjectId(id)}, function (err, doc) {
+    res.json(doc);
+  });
+});
+
 
 
 app.listen(3000);//running on localhost:3000

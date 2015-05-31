@@ -27,6 +27,14 @@ myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
     })
   }
 
+  //Removing Contacts by ID
+  $scope.remove = function(id) {
+    console.log(id);
+    $http.delete('/contactlist/' + id).success(function(response){
+      refresh();
+    });
+  };
+
 }]);
 
 
