@@ -8,5 +8,13 @@ myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
 
     //This makes it so that the controller can be accessed by our view (index.html)
     $scope.contactlist = response;
-  })}]);
+  })
+  
+  //Adding the contacts to our controller
+  $scope.addContact = function() {
+    console.log($scope.contact);
+  }
+
+}]);
+
 
