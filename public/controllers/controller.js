@@ -51,6 +51,12 @@ myApp.controller('AppCtrl', ['$scope', '$http', function($scope, $http) {
     })
   };
 
+  //Clear the contact from response
+  $scope.deselect = function(){
+    $scope.contact = "";
+  }
+
+
 
 }]);
 
