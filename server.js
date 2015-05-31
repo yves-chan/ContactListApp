@@ -1,5 +1,9 @@
-var express = require('express')
+var express = require('express');
 var app = express();
+var mongojs = require('mongojs');//needs mongojs
+var db = mongojs('contactlist', ['contactlist']);//specify which mongodb we are using, in this case 'contactlist'
+
+
 
 app.use(express.static(__dirname + "/public"));//looking through our static files (ie html)
 
@@ -7,27 +11,12 @@ app.use(express.static(__dirname + "/public"));//looking through our static file
 app.get('/contactlist', function(req, res) {
   console.log("I received a get request")
 
-  person1= {
-    name: 'Tim',
-    email: 'tim@gmail.com',
-    number:'(571) 426-1433'
-  };
+  db.contactlist.find(function(err,docs) {
+    console.log(docs);
+    //respond by putting data into a json format, which controller can use
+    res.json(docs);
 
-  person2= {
-    name:'Liam',
-    email:'neason@taken2.com',
-    number: '(777) 777-7777'
-  };
-
-  person3= {
-    name: 'Jessie',
-    email:'jessie@vma.com',
-    number: '(684) 426-1232'
-  };
-
-  var contactlist = [person1, person2, person3];
- //respond by putting data into a json format, which controller can use
-  res.json(contactlist);
+  });
 });
 
 app.listen(3000);//running on localhost:3000
